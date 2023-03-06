@@ -16,9 +16,9 @@ const Login = () => {
       </Head>
       <section className='w-3/4 mx-auto flex flex-col gap-10 pb-3'>
         <div>
-          <h1 className='text-gray-800 text-4xl font-bold py-4'>Explore</h1>
+          <h1 className='text-gray-800 text-4xl font-bold py-4'>Login</h1>
           <p className='w-3/4 mx-auto text-gray-400'>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore mollitia ut accusantium amet quos, ipsum reprehenderit rerum ea praesentium esse vero non iure atque.
+            Basic authentication with nextAuth in NextJS.
           </p>
         </div>
       </section>
