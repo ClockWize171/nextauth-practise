@@ -6,6 +6,7 @@ import { HiEye, HiEyeOff, HiAtSymbol, HiOutlineUser } from 'react-icons/hi'
 import { useFormik } from 'formik'
 import Link from 'next/link'
 import { registerValidate } from 'lib/validate'
+import { useRouter } from 'next/router'
 
 type HiddenProps = {
   passwd: boolean,
@@ -13,6 +14,7 @@ type HiddenProps = {
 }
 
 const Register: React.FC = () => {
+  const router = useRouter()
   const [hidden, setHidden] = useState<HiddenProps>({ passwd: true, confirmpasswd: true })
   const formik = useFormik({
     initialValues: {
@@ -26,7 +28,16 @@ const Register: React.FC = () => {
   })
 
   async function onSubmit(value: any) {
-    console.log(value)
+    const options = {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(value)
+    }
+    await fetch('http://localhost:3000/api/auth/register', options)
+      .then(res => res.json())
+      .then((data) =>{
+        if(data) router.push('http://localhost:3000/')
+      } )
   }
 
   return (

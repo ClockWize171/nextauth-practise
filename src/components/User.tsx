@@ -13,13 +13,17 @@ const User = (props: Props) => {
     signOut({ callbackUrl: 'http://localhost:3000/login' })
   }
 
-  console.log(props.session)
   return (
     <main className='flex flex-col mx-auto h-full justify-center items-center'>
-      <h1 className='text-3xl font-bold underline'>Your are {props.session?.user?.name}</h1>
+      <h1 className='text-3xl font-bold underline'>Your are {props.session?.user?.name ? props.session?.user?.name : 'logged in credentials'}</h1>
 
       <div className=' object-cover mt-5'>
-        <Image className='object-cover rounded-full' src={props.session?.user?.image} alt='image' width={200} height={200} />
+        <Image
+          className='object-cover rounded-full'
+          src={props.session?.user?.image ? props.session?.user?.image : 'https://via.placeholder.com/200x200'}
+          alt='image'
+          width={200}
+          height={200} />
       </div>
 
       <div className='detail my-5'>

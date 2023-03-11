@@ -8,13 +8,11 @@ import { HiAtSymbol, HiEye, HiEyeOff } from 'react-icons/hi'
 import { signIn } from "next-auth/react"
 import { useFormik } from 'formik'
 import { loginValidate } from 'lib/validate'
+import { useRouter } from 'next/router'
 
 const Login = () => {
   const [hidden, setHidden] = useState(true);
-
-  const handleSubmit = async (value: any) => {
-    console.log(value)
-  }
+  const router = useRouter();
 
   // FORMIK CONFIG
   const formik = useFormik({
@@ -23,8 +21,18 @@ const Login = () => {
       password: "",
     },
     validate: loginValidate,
-    onSubmit: handleSubmit
+    onSubmit
   })
+
+  async function onSubmit(value: any) {
+    const status = await signIn('credentials', {
+      redirect: false,
+      email: value.email,
+      password: value.password,
+      callbackUrl: '/'
+    })
+    if (status?.ok) router.push(status.url as string)
+  }
 
   const handleGoogleSignIn = async () => {
     signIn('google', { callbackUrl: "http://localhost:3000" })
